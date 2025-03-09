@@ -26,6 +26,9 @@ add_executable(ladder_main
   src/ladder_main.cpp
 )
 
+add_compile_options("-fsanitize=address,undefined")
+link_libraries("-fsanitize=address,undefined")
+
 find_package(GTest)
 if (GTest_FOUND)
   set(STUDENT_TEST_FILES
@@ -39,6 +42,6 @@ if (GTest_FOUND)
     ${LADDER_SRC_FILES}
   )
   target_include_directories(student_gtests PRIVATE src ${GTEST_INCLUDE_DIRS})
-  target_link_libraries(student_gtests PRIVATE ${GTEST_LIBRARIES})
+  target_link_libraries(student_gtests PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES})
 endif()
 
