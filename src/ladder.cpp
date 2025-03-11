@@ -69,7 +69,7 @@ vector<string> generate_word_ladder (const string & begin_word, const string & e
     }
 
     // Check end word is in dictionary (Prevent infinite loop)
-    if (word_list.find(end_word) != word_list.end()) {
+    if (word_list.find(end_word) == word_list.end()) {
         error (end_word , "", "End word is not in the dictionary");
         return {};
     }
