@@ -59,6 +59,32 @@ bool not_visited (const set<string> & visited , const string & word) {
     return visited.find(word) == visited.end();
 }
 
+set<string> get_patterns (const string & word, const set<string> & word_list) {
+    // Return the neighbor patterns of the word
+    set<string> patterns;
+
+    // Generate the neighbors
+    for (int i = 0 ; i < word.length() ; ++ i) {
+        for (char letter = 'a' ; letter <= 'z' ; ++ letter) {
+            // Insertions
+            string insertion = word.substr(0, i) + letter + word.substr(i);
+            
+            // Substitutions
+            string substitution = word;
+            substitution[i] = letter;
+
+            if (word_list.find(insertion) != word_list.end())
+                patterns.insert(insertion);
+            if (word_list.find(substitution) != word_list.end())
+            patterns.insert(substitution);
+        }
+        // Deletions
+        string deletion = word.substr(0, i) + word.substr(i + 1); 
+        patterns.insert(deletion);
+    }
+    return patterns;
+}
+
 vector<string> generate_word_ladder (const string & begin_word, const string & end_word, const set<string> & word_list) {
     // Find minimum-length ladder using BFS
 
@@ -81,14 +107,15 @@ vector<string> generate_word_ladder (const string & begin_word, const string & e
     visited.insert(begin_word);
 
     // BFS
-    while(!q.empty()) {
+    while (!q.empty()) {
         ladder = q.front();
         q.pop();
         string last_word = ladder.back();
 
         // Examine valid ladders: in the dictionary, adjacent, and not visited
-        for (auto & word: word_list)
-            if (is_adjacent(last_word, word) && not_visited(visited, word) ) {
+        set<string> patterns = get_patterns(last_word, word_list);
+        for (auto & word: patterns)
+            if (not_visited(visited, word) ) {
                 visited.insert(word);
                 vector<string> new_ladder = ladder;
                 new_ladder.push_back(word);

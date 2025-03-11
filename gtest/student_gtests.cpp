@@ -21,7 +21,7 @@ TEST (LadderTest, TestLadderFound) {
     vector<string> expected = {"hat", "hot", "dot", "dog", "cog"};
     EXPECT_EQ(ladder, expected);
 
-    vector<string> no_ladder = generate_word_ladder("cat", "cog", word_list);
+    vector<string> no_ladder = generate_word_ladder("cat", "cot", word_list);
     vector<string> expect_empty = {};
     EXPECT_EQ(no_ladder, expect_empty);
 }
