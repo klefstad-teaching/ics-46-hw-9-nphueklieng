@@ -68,6 +68,12 @@ vector<string> generate_word_ladder (const string & begin_word, const string & e
         return {};
     }
 
+    // Check end word is in dictionary (Prevent infinite loop)
+    if (word_list.find(end_word) != word_list.end()) {
+        error (end_word , "", "End word is not in the dictionary");
+        return {};
+    }
+
     vector<string> ladder;
     queue< vector<string> > q;  // Use Queue to store partial ladders: possibilities to explore (Each partial ladder is a stack => Queue of stacks)
     q.push({begin_word});
