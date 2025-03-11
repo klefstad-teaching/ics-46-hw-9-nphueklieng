@@ -76,11 +76,12 @@ set<string> get_patterns (const string & word, const set<string> & word_list) {
             if (word_list.find(insertion) != word_list.end())
                 patterns.insert(insertion);
             if (word_list.find(substitution) != word_list.end())
-            patterns.insert(substitution);
+                patterns.insert(substitution);
         }
         // Deletions
         string deletion = word.substr(0, i) + word.substr(i + 1); 
-        patterns.insert(deletion);
+        if (word_list.find(deletion) != word_list.end())
+            patterns.insert(deletion);
     }
     return patterns;
 }
