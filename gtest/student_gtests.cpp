@@ -26,4 +26,27 @@ TEST (LadderTest, TestLadderFound) {
     EXPECT_EQ(no_ladder, expect_empty);
 }
 
+TEST (LadderTest, TestLoadWords) {
+    set<string> word_list;
+    string filename = "test_words.txt";
+    
+    // Create a mock file with valid words
+    ofstream out(filename);
+    out << "hit\nhot\ndot\ndog\ncog\n";
+    out.close();
+
+    load_words(word_list, filename);
+
+    EXPECT_EQ(word_list.size(), 5) << "The loaded word set does not match the expected set.";
+    
+    for (auto & word : word_list)
+        cout << word << " ";
+    cout << endl;
+
+    // Clean up the test file
+    remove(filename.c_str());
+}
+
 // ------------------- Test Dijkstras ------------------- //
+
+

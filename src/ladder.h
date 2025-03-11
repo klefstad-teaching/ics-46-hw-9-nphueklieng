@@ -24,7 +24,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 void load_words(set<string> & word_list, const string& file_name);
 void print_word_ladder(const vector<string>& ladder);
 
-# define my_assert(e) { cout << #e << ((e) ? " passed": " failed") << endl; }
+# define myassert(e) { cout << #e << ((e) ? " passed": " failed") << endl ; }
 void verify_word_ladder();
 
 #endif

@@ -51,7 +51,7 @@ bool edit_distance_within (const string & str1 , const string & str2, int d) {
 
 bool is_adjacent (const string & word1, const string & word2) {
     // Check edit distance is within 1
-    return edit_distance_within (word1, word2, 1);
+    return edit_distance(word1, word2) == 1;
 }
 
 bool not_visited (const set<string> & visited , const string & word) {
@@ -99,5 +99,30 @@ vector<string> generate_word_ladder (const string & begin_word, const string & e
     return {};
 }
 
-// ------------------- Word Ladder Tools ------------------- //
+// ------------------- Word Ladder Verification ------------------- //
 
+void load_words(set<string> & word_list, const string& file_name) {
+    // Load the words from the file into the word_list set
+    ifstream in(file_name);
+
+    string word;
+    while (in >> word)
+        word_list.insert(word);
+}
+
+void print_word_ladder(const vector<string>& ladder) {
+
+}
+
+void verify_word_ladder () {
+    // Verify word ladder program
+    set<string> word_list;
+    load_words (word_list, "src/words.txt");
+
+    myassert(generate_word_ladder("cat", "dog", word_list).size() == 4);
+    myassert(generate_word_ladder("marty", "curls", word_list).size() == 6);
+    myassert(generate_word_ladder("code", "data", word_list).size() == 6);
+    myassert(generate_word_ladder("work", "play", word_list).size() == 6);
+    myassert(generate_word_ladder("sleep", "awake", word_list).size() == 8);
+    myassert(generate_word_ladder("car", "cheat", word_list).size() == 4);
+}
