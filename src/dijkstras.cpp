@@ -37,7 +37,7 @@ vector<int> dijkstra_shortest_path (const Graph& G, int source, vector<int> & pr
     return distances;   // Runtime COmplexity: O((|E| + |V|) log |V|) for binary heap for PriorityQueue
 }
 
-vector<int> extract_shortest_path(const vector<int>& previous, int destination) {
+vector<int> extract_shortest_path(const vector<int> & distances, const vector<int> & previous, int destination) {
     // Extract from the destination to the source using the previous vector
     vector<int> shortest_path;
 

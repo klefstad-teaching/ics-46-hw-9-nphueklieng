@@ -51,7 +51,7 @@ bool edit_distance_within (const string & str1 , const string & str2, int d) {
 
 bool is_adjacent (const string & word1, const string & word2) {
     // Check edit distance is within 1
-    return edit_distance(word1, word2) == 1;
+    return edit_distance_within(word1, word2, 1);
 }
 
 bool not_visited (const set<string> & visited , const string & word) {
@@ -111,7 +111,16 @@ void load_words(set<string> & word_list, const string& file_name) {
 }
 
 void print_word_ladder(const vector<string>& ladder) {
+    // Print the word ladder
 
+    if (ladder.size() == 0)
+        cout << "No word ladder found.";
+    else
+        cout << "Word ladder found: ";
+
+    for (auto & word : ladder)
+        cout << word << " ";
+    cout << endl;
 }
 
 void verify_word_ladder () {
