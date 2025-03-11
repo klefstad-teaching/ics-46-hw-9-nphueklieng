@@ -53,5 +53,5 @@ void print_path (const vector<int> & v, int total) {
     for (auto & word : v)
         cout << word << " ";
 
-    cout << endl << "Total cost: " << total << endl;
+    cout << endl << "Total cost is " << total << endl;
 }
