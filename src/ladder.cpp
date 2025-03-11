@@ -68,21 +68,32 @@ vector<string> get_patterns (const string & word, const set<string> & word_list)
         for (char letter = 'a' ; letter <= 'z' ; ++ letter) {
             // Insertions
             string insertion = word.substr(0, i) + letter + word.substr(i);
+            if (word_list.find(insertion) != word_list.end())
+                patterns.push_back(insertion);
             
             // Substitutions
             string substitution = word;
-            substitution[i] = letter;
-
-            if (word_list.find(insertion) != word_list.end())
-                patterns.push_back(insertion);
-            if (word_list.find(substitution) != word_list.end())
-                patterns.push_back(substitution);
+            if (word[i] != letter) {
+                substitution[i] = letter;
+                if (word_list.find(substitution) != word_list.end())
+                    patterns.push_back(substitution);
+            }
         }
+
         // Deletions
         string deletion = word.substr(0, i) + word.substr(i + 1); 
         if (word_list.find(deletion) != word_list.end())
             patterns.push_back(deletion);
     }
+
+    int i = word.length();
+    for (char letter = 'a' ; letter <= 'z' ; ++ letter) {
+        // Insertions
+        string insertion = word.substr(0, i) + letter + word.substr(i);
+        if (word_list.find(insertion) != word_list.end())
+            patterns.push_back(insertion);
+    }
+    
     sort(patterns.begin(), patterns.end());
     return patterns;
 }
@@ -128,7 +139,6 @@ vector<string> generate_word_ladder (const string & begin_word, const string & e
                 q.push(new_ladder);
             }
     }
-
     // No ladder found
     error (begin_word, end_word, "No ladder was found.");
     return {};
@@ -147,7 +157,6 @@ void load_words(set<string> & word_list, const string& file_name) {
 
 void print_word_ladder(const vector<string>& ladder) {
     // Print the word ladder
-
     if (ladder.size() == 0)
         cout << "No word ladder found.";
     else
